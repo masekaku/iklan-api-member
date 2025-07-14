@@ -7,6 +7,7 @@ app.use(cors());
 
 const ads = JSON.parse(fs.readFileSync('./ads.json', 'utf-8'));
 
+// Route untuk API iklan
 app.get('/api/ads', (req, res) => {
   const site = req.query.site;
 
@@ -15,6 +16,11 @@ app.get('/api/ads', (req, res) => {
   }
 
   res.json(ads[site]);
+});
+
+// Route halaman utama
+app.get('/', (req, res) => {
+  res.send('API Iklan Aktif');
 });
 
 const port = process.env.PORT || 3000;
