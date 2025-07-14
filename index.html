@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Rotator Iklan Super Smooth</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 300px;
+    height: 300px;
+    background: #000;
+    overflow: hidden;
+    position: relative;
+    font-family: sans-serif;
+  }
+  .rotator {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+  }
+  .logo-iklan {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<a id="adLink" href="#" target="_blank">
+  <img id="img1" class="rotator" src="">
+  <img id="img2" class="rotator" src="">
+  <div class="logo-iklan">Onlyfans</div>
+</a>
+
+<script>
+const ads = [
+  { image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjY1Tg33ERRP-PLzTDZBXG_PGGWD7a8zPigc9CtZ703urFxvSEqyg62PqIY0GP_a4BsoYBbY_QB-ELnOqSLsaungJt8EkR7zqsy4vrQvbHqS6JzRXLOk1-enS6CMp7GNpfzv8ZU9war9_TdMb6RXCAbjbK0ma9wea2mFlA4XP77R6KokYgYfclAKMeftBk/s1600/1000035794.png", link: "https://otieu.com/4/7853886" },
+  { image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgKqh9Fzx8r2QPfKFY36WBoU1-nuLrbfUtM985w1FBSsgWu_QUtN2AfeeQXrGLs_QQhEwZEa1quHWDpgVwqqbBW0akIzEiBrJsHWoSvUub3TnnfUiBKBkINxzyr0fyU9c3lRijvQ6BNrig_hQam4ejoCuGOeu-X5SWga2kVMjzg533gRVzBE_7hRzbquAA/s1600/1000035795.png", link: "https://otieu.com/4/9281012" },
+  { image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhxbI55GFbL2QLi-18UpkgOFUNHvFAWXieSIPdkkv9gzQZFNefhAjszkdRgZhyfc7avHp5VLRpbRA1zGxTBfAfJSWO8-W17Bly8IH5FR0ICiHY3bfsnwihRsg3VBpgxwSh1JL0__nCNV9EWIKiAzdisP_zoRytlmQFaUYxEM-WbluljT4WuxmsASsgBLac/s1600/1000035796.png", link: "https://otieu.com/4/7859440" },
+  { image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiaSk2KoaeyR3jzKTUVc7d8xUIq15QBgamrcFp5gO5fmISCSrRDauLWivK46Iy-HLAi9DntaB5JVjHd0Uzwxgl_1EgXGzjU1wweIrWkbhf8B7FSNFSain9ApRU3Yk29M3DRscp7ANp6LouYEyJAEaKnkak6sa0E4g7A0g30ug-WXFSQaEXCEVCUK3Zf5YM/s1600/1000035797.png", link: "https://otieu.com/4/7859436" },
+  { image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhp1nXTA4cq6qX-gvw8fNpNsxJ42xeYB6aW5xTTWLMmgeXjCs_R57LeNIzudGdBklBD4zzn7touHUhojG0eWYTZLoYZfKVYCIjJv2EzjD3fFHjTx21iJfx5L5AXAEBU5bHhbvcFPzKnapl9vxfze5745QnOi0O87LQFwUMsT_2pRZTwcj0TFWXleZ3RNnI/s1600/1000035798.png", link: "https://otieu.com/4/9302400" },
+  { image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg9nTtMc8GzjeGuqRDso_BSgn8Kngk8CWZEVLrOD1AVZgXQY3sjyhUOWIFVTahRqBnUe5EHWoUaDejP4WUt3IJjsIwMaPeIRVVrCxZzXNuLtL_0bRI6o6Ei4eZV-5Xf9cJP-G2AYMZN1MiddlGa6C_S2ZcrP2sF95MVCtZljiRUnBdEdrpZnlwR_eRIDOs/s1600/1000035799.png", link: "https://otieu.com/4/9281006" },
+  { image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizdhhxEgmkysGUQKDt03pjtHO_i6VQOT2m0w9k3b9QqkFe7WCjFKapxh3A5HcBQxBNHI1kHsSB2VzJotOevCUsvjk8EhPrUH3SRjdwNF5P5tXCX1jPsNswGUCrDbirkrMQVuanzREBX7mRwplAqBeTxo4N0QtyR-G5mZ4Fdgst-Kdkm2HqSsp2VvQwI8I/s1600/1000035800.png", link: "https://otieu.com/4/9281006" },
+  { image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhQAQeNs8j-wj2xZx8KtAzNocqFmzee6XUCb-jSNeQgbpM_5KG-ER5JpJKRwfwnH3YsoA1ZWiOtHVNn0Fei8m41wNB3sVk4IYoqF3ntuzeW8MI4zedGycSaVdaHHY2HSA4Xn3wi_VqNzUFy99io5HRn9o6WUBG1JQYV8D5tMN_2fZzRg-6y_9Ca37dDx_E/s1600/1000035801.png", link: "https://otieu.com/4/9281006" },
+  { image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiggk3tbiB7cvmF-BT6J-rtTSIwsyK01TnUhL7NLgXBsNus36zpfwqp4_spbaSFTRNOS1rWsa2JAYh6HXnhXI1ERuO9IfzyHcF7U_ejcCt4GjRTKQR6Q8lDXuJJs5Wpb7FR9fCmsyAXTfmRRGaKtHgSPSgaqbe5IR-SE_wraNFJ5FEYWdhSoVKwVY7JmuY/s1600/1000035802.png", link: "https://otieu.com/4/9281006" },
+  { image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEha9lNJh0gekCvQdgo1vA68rfBl-TVHerfbvyINszTkGehgN3nUxDUxA58OaX37qeACSa0NFiBQzEXdUvVuAi7c812iWeHCSx4BlnSVuOgRYgjAB06tFFf8D8cawMwtAqlKr3zcEQ6Hlr1BHZieT8OcTxtlfUzj9rLGxnXm0XYbihWw00j5yVpwobWebwM/s1600/1000035803.png", link: "https://otieu.com/4/9281006" }
+];
+
+let index = 0;
+let active = 1;
+
+const img1 = document.getElementById('img1');
+const img2 = document.getElementById('img2');
+const link = document.getElementById('adLink');
+
+// Set gambar pertama
+const firstAd = ads[0];
+img1.src = firstAd.image;
+img1.style.opacity = 1;
+link.href = firstAd.link;
+
+function preloadImage(src, callback) {
+  const img = new Image();
+  img.onload = () => callback(img);
+  img.src = src;
+}
+
+function nextAd() {
+  index = (index + 1) % ads.length;
+  const ad = ads[index];
+
+  preloadImage(ad.image, (preloadedImg) => {
+    link.href = ad.link;
+
+    if (active === 1) {
+      img2.src = preloadedImg.src;
+      img2.style.opacity = 1;
+      img1.style.opacity = 0;
+      active = 2;
+    } else {
+      img1.src = preloadedImg.src;
+      img1.style.opacity = 1;
+      img2.style.opacity = 0;
+      active = 1;
+    }
+  });
+}
+
+setInterval(nextAd, 4000);
+</script>
+
+</body>
+</html>
